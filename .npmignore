@@ -1,0 +1,17 @@
+# Source
+src/
+tsconfig.json
+
+# Tool Output
+ribbit/
+ribbit.config.js
+grasp/
+grasp.config.js
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Misc
+.git/
+.DS_Store

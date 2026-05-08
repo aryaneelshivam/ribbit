@@ -1,0 +1,7 @@
+# Grasp
+grasp/*.json
+grasp/modules/
+
+# Ribbit
+ribbit/*.json
+ribbit/modules/
