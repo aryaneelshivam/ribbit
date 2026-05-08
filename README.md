@@ -36,7 +36,7 @@ npm run ribbit
 Or run directly:
 
 ```bash
-npx ribbit
+npx @aryaneelshivam/ribbit
 ```
 
 ## What Gets Generated
