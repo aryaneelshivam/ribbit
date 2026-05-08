@@ -16,7 +16,7 @@ import { serializeGraph } from "./graph/serializer";
 import { RibbitConfig, DEFAULT_CONFIG, ParseResult, WorkerResult } from "./types";
 import * as ui from "./ui";
 
-const VERSION = "1.1.2";
+const VERSION = "1.1.3";
 
 // ─── Config Loading ────────────────────────────────────────────────────────────
 

@@ -49,7 +49,7 @@ const differ_1 = require("./graph/differ");
 const serializer_1 = require("./graph/serializer");
 const types_1 = require("./types");
 const ui = __importStar(require("./ui"));
-const VERSION = "1.1.2";
+const VERSION = "1.1.3";
 // ─── Config Loading ────────────────────────────────────────────────────────────
 function loadConfig(configPath) {
     const root = process.cwd();

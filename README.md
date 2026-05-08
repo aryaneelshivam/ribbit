@@ -111,6 +111,12 @@ Point your AI agent to the graph:
 @ribbit/index.json
 ```
 
+> [!IMPORTANT]
+> **Cursor & Copilot Workaround**
+> IDE AI agents will completely ignore files listed in your `.gitignore`. If you add `ribbit/` to your `.gitignore`, you **will not** be able to tag it with `@ribbit`. 
+> 
+> **To fix this:** Do not add `ribbit/` to your `.gitignore` file. Instead, manually ensure you do not `git commit` the folder, or add it to `.cursorignore` (if your IDE supports divergent ignore files).
+
 The centrality scores tell agents which files and symbols are most important — entry points, shared utilities, and core models will have high centrality.
 
 ## CLI Options
