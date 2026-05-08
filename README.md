@@ -4,6 +4,16 @@
 
 Ribbit scans your project, parses every file with [tree-sitter](https://tree-sitter.github.io/), and outputs a structured JSON graph of all files, symbols, and relationships. Any AI agent can directly reference this graph for code understanding, navigation, and analysis.
 
+## Features
+
+- ⚡️ **Blazing Fast Incremental Builds**: Uses `xxhash-wasm` to fingerprint files. On re-runs, only modified files are parsed, completing most updates in under 500ms.
+- 🧵 **Multi-Core Parallel Parsing**: Leverages Node.js `worker_threads` to parse your codebase concurrently across all available CPU cores.
+- 🌳 **Deep Semantic Understanding**: Powered by `tree-sitter` for flawless AST-based parsing of **TypeScript**, **JavaScript**, and **Python**.
+- 🐸 **Production-Grade Terminal UI**: Zero-dependency custom UI with vibrant green gradients, ASCII banners, and animated box-drawn statistics panels.
+- 🧠 **AI-Optimized Output**: Automatically calculates "centrality" metrics so LLMs and coding agents know which files are the most critical in your architecture.
+- 📦 **Smart Auto-Chunking**: Small projects get a single `index.json`. Large projects (>200 files) are automatically split into a chunked module directory structure to prevent context window overflows.
+- ⚙️ **Highly Customizable**: Easily exclude directories, toggle test files, or focus on specific languages via `ribbit.config.js`.
+
 ---
 
 ## Quick Start
