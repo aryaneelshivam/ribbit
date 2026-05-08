@@ -16,7 +16,7 @@ import { serializeGraph } from "./graph/serializer";
 import { RibbitConfig, DEFAULT_CONFIG, ParseResult, WorkerResult } from "./types";
 import * as ui from "./ui";
 
-const VERSION = "1.1.0";
+const VERSION = "1.1.2";
 
 // ─── Config Loading ────────────────────────────────────────────────────────────
 
@@ -51,21 +51,8 @@ function loadConfig(configPath?: string): RibbitConfig {
 // ─── .gitignore Management ─────────────────────────────────────────────────────
 
 function ensureGitignore(root: string, outputDir: string): void {
-  const gitignorePath = path.join(root, ".gitignore");
-  const relOutput = path.relative(root, outputDir);
-  const entries = [`# Ribbit`, `${relOutput}/*.json`, `${relOutput}/modules/`];
-
-  try {
-    if (fs.existsSync(gitignorePath)) {
-      const content = fs.readFileSync(gitignorePath, "utf-8");
-      if (content.includes("# Ribbit")) return;
-      fs.appendFileSync(gitignorePath, `\n${entries.join("\n")}\n`);
-    } else {
-      fs.writeFileSync(gitignorePath, `${entries.join("\n")}\n`);
-    }
-  } catch {
-    // Non-critical
-  }
+  // We no longer automatically add to .gitignore because IDE agents 
+  // like Cursor ignore files listed in .gitignore, making the graph invisible to them.
 }
 
 // ─── Worker Orchestration ──────────────────────────────────────────────────────

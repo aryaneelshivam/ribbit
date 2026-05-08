@@ -1,11 +1,19 @@
 {
   "name": "@aryaneelshivam/ribbit",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "description": "Generate an AI-readable knowledge graph of your codebase",
   "main": "./dist/cli.js",
   "bin": {
     "ribbit": "dist/cli.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aryaneelshivam/ribbit.git"
+  },
+  "bugs": {
+    "url": "https://github.com/aryaneelshivam/ribbit/issues"
+  },
+  "homepage": "https://github.com/aryaneelshivam/ribbit#readme",
   "scripts": {
     "build": "tsc",
     "ribbit": "node ./dist/cli.js",

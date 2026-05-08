@@ -1,5 +1,8 @@
 # Ribbit
 
+[![npm version](https://badge.fury.io/js/%40aryaneelshivam%2Fribbit.svg)](https://www.npmjs.com/package/@aryaneelshivam/ribbit)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue.svg)](https://github.com/aryaneelshivam/ribbit)
+
 **Generate an AI-readable knowledge graph of your codebase.**
 
 Ribbit scans your project, parses every file with [tree-sitter](https://tree-sitter.github.io/), and outputs a structured JSON graph of all files, symbols, and relationships. Any AI agent can directly reference this graph for code understanding, navigation, and analysis.

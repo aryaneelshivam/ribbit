@@ -49,7 +49,7 @@ const differ_1 = require("./graph/differ");
 const serializer_1 = require("./graph/serializer");
 const types_1 = require("./types");
 const ui = __importStar(require("./ui"));
-const VERSION = "1.1.0";
+const VERSION = "1.1.2";
 // ─── Config Loading ────────────────────────────────────────────────────────────
 function loadConfig(configPath) {
     const root = process.cwd();
@@ -79,23 +79,8 @@ function loadConfig(configPath) {
 }
 // ─── .gitignore Management ─────────────────────────────────────────────────────
 function ensureGitignore(root, outputDir) {
-    const gitignorePath = path.join(root, ".gitignore");
-    const relOutput = path.relative(root, outputDir);
-    const entries = [`# Ribbit`, `${relOutput}/*.json`, `${relOutput}/modules/`];
-    try {
-        if (fs.existsSync(gitignorePath)) {
-            const content = fs.readFileSync(gitignorePath, "utf-8");
-            if (content.includes("# Ribbit"))
-                return;
-            fs.appendFileSync(gitignorePath, `\n${entries.join("\n")}\n`);
-        }
-        else {
-            fs.writeFileSync(gitignorePath, `${entries.join("\n")}\n`);
-        }
-    }
-    catch {
-        // Non-critical
-    }
+    // We no longer automatically add to .gitignore because IDE agents 
+    // like Cursor ignore files listed in .gitignore, making the graph invisible to them.
 }
 function spawnWorkers(files, root, numWorkers) {
     return new Promise((resolve, reject) => {
