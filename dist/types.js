@@ -3,7 +3,7 @@
 // Every type used throughout the Ribbit codebase is defined here as the single
 // source of truth. This file has zero runtime imports — it is types-only.
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.DEFAULT_CONFIG = exports.DEFAULT_IGNORE = exports.LANGUAGE_EXTENSIONS = void 0;
+exports.DEFAULT_CONFIG = exports.DEFAULT_HANDOFF_CONFIG = exports.DEFAULT_IGNORE = exports.LANGUAGE_EXTENSIONS = void 0;
 // ─── Language Extension Map ────────────────────────────────────────────────────
 exports.LANGUAGE_EXTENSIONS = {
     typescript: [".ts", ".tsx"],
@@ -24,6 +24,13 @@ exports.DEFAULT_IGNORE = [
     ".vercel",
     ".cache",
 ];
+exports.DEFAULT_HANDOFF_CONFIG = {
+    enabled: true,
+    commits: 10,
+    includeDiffs: true,
+    includeImpact: true,
+    format: "markdown",
+};
 exports.DEFAULT_CONFIG = {
     ignore: [
         "**/*.test.ts",
@@ -41,5 +48,6 @@ exports.DEFAULT_CONFIG = {
     chunkThreshold: 200,
     includeTests: false,
     includeDotFiles: false,
+    handoff: exports.DEFAULT_HANDOFF_CONFIG,
 };
 //# sourceMappingURL=types.js.map

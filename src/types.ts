@@ -106,6 +106,21 @@ export interface RelationshipsChunk {
   byModule: Record<string, { incoming: RibbitEdge[]; outgoing: RibbitEdge[] }>;
 }
 
+// ─── Handoff Config ────────────────────────────────────────────────────────────
+
+export interface HandoffConfig {
+  /** Whether to generate the handoff file */
+  enabled: boolean;
+  /** How many commits to look back */
+  commits: number;
+  /** Include function-level diff analysis */
+  includeDiffs: boolean;
+  /** Include dependency impact analysis from the graph */
+  includeImpact: boolean;
+  /** Output format */
+  format: "markdown" | "json";
+}
+
 // ─── Config ────────────────────────────────────────────────────────────────────
 
 export interface RibbitConfig {
@@ -116,6 +131,8 @@ export interface RibbitConfig {
   chunkThreshold: number;
   includeTests: boolean;
   includeDotFiles: boolean;
+  /** Handoff file generation config */
+  handoff: HandoffConfig;
 }
 
 // ─── Parse Pipeline ────────────────────────────────────────────────────────────
@@ -162,6 +179,14 @@ export const DEFAULT_IGNORE = [
   ".cache",
 ];
 
+export const DEFAULT_HANDOFF_CONFIG: HandoffConfig = {
+  enabled: true,
+  commits: 10,
+  includeDiffs: true,
+  includeImpact: true,
+  format: "markdown",
+};
+
 export const DEFAULT_CONFIG: RibbitConfig = {
   ignore: [
     "**/*.test.ts",
@@ -179,4 +204,5 @@ export const DEFAULT_CONFIG: RibbitConfig = {
   chunkThreshold: 200,
   includeTests: false,
   includeDotFiles: false,
+  handoff: DEFAULT_HANDOFF_CONFIG,
 };

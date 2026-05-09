@@ -61,35 +61,9 @@ function progressBar(value: number, max: number, barWidth: number = 16): string 
   return `${c.cyan}${"█".repeat(filled)}${c.gray}${"░".repeat(empty)}${c.reset}`;
 }
 
-// ─── Banner ────────────────────────────────────────────────────────────────────
-
-const BANNER_ART = [
-  " ██████  ██ ██████  ██████  ██ ████████ ",
-  " ██   ██ ██ ██   ██ ██   ██ ██    ██    ",
-  " ██████  ██ ██████  ██████  ██    ██    ",
-  " ██   ██ ██ ██   ██ ██   ██ ██    ██    ",
-  " ██   ██ ██ ██████  ██████  ██    ██    ",
-];
-
-const GRADIENT = [c.brightGreen, c.green, c.brightGreen, c.green, c.brightGreen];
-
 export function printBanner(version: string): void {
-  const W = 50;
   console.log("");
-  console.log(boxTop(W));
-  console.log(boxEmpty(W));
-  for (let i = 0; i < BANNER_ART.length; i++) {
-    const line = BANNER_ART[i];
-    const colored = `${GRADIENT[i]}${c.bold}${line}${c.reset}`;
-    console.log(boxRow(colored, W));
-  }
-  console.log(boxEmpty(W));
-  const tagline = `${c.green}🐸${c.reset} ${c.white}${c.bold}Knowledge Graph Generator${c.reset}`;
-  console.log(boxRow(`         ${tagline}          `, W));
-  const ver = `${c.dim}v${version}${c.reset}`;
-  console.log(boxRow(`                  ${ver}                   `, W));
-  console.log(boxEmpty(W));
-  console.log(boxBottom(W));
+  console.log(`  ${c.green}🐸${c.reset} ${c.bold}Ribbit${c.reset} ${c.dim}v${version}${c.reset}`);
   console.log("");
 }
 
@@ -130,6 +104,7 @@ interface StatsData {
   parseTime: number;
   incremental: boolean;
   outputPath: string;
+  handoffPath?: string | null;
 }
 
 export function printStats(stats: StatsData): void {
@@ -177,6 +152,9 @@ export function printStats(stats: StatsData): void {
   );
   console.log(boxEmpty(W));
   console.log(boxRow(`${c.green}→${c.reset}  ${c.dim}${stats.outputPath}${c.reset}`, W));
+  if (stats.handoffPath) {
+    console.log(boxRow(`${c.brightCyan}→${c.reset}  ${c.dim}${stats.handoffPath}${c.reset}`, W));
+  }
   console.log(boxEmpty(W));
   console.log(boxBottom(W));
   console.log("");

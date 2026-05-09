@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // ─── Ribbit CLI ─────────────────────────────────────────────────────────────────
 // Entry point for the `ribbit` command. Orchestrates the full pipeline:
-// walker → hasher → workers → builder → differ → serializer
+// walker → hasher → workers → builder → differ → serializer → handoff
 
 import { Command } from "commander";
 import * as path from "path";
@@ -13,7 +13,8 @@ import { diffFiles, loadPreviousGraph } from "./hasher";
 import { buildGraph } from "./graph/builder";
 import { patchStaleEdges } from "./graph/differ";
 import { serializeGraph } from "./graph/serializer";
-import { RibbitConfig, DEFAULT_CONFIG, ParseResult, WorkerResult } from "./types";
+import { generateHandoff } from "./handoff/generator";
+import { RibbitConfig, DEFAULT_CONFIG, DEFAULT_HANDOFF_CONFIG, ParseResult, WorkerResult } from "./types";
 import * as ui from "./ui";
 
 const VERSION = "1.1.4";
@@ -29,7 +30,9 @@ function loadConfig(configPath?: string): RibbitConfig {
     try {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const userConfig = require(resolvedPath);
-      return { ...DEFAULT_CONFIG, ...userConfig };
+      // Deep-merge handoff config so partial overrides work
+      const mergedHandoff = { ...DEFAULT_HANDOFF_CONFIG, ...(userConfig.handoff || {}) };
+      return { ...DEFAULT_CONFIG, ...userConfig, handoff: mergedHandoff };
     } catch (err) {
       ui.warn(`Failed to load config from ${resolvedPath}, using defaults`);
     }
@@ -221,6 +224,19 @@ async function run(options: { full?: boolean; stats?: boolean; config?: string }
   const outputPath = await serializeGraph(graph, config, root);
   const relOutput = path.relative(root, outputPath);
 
+  // Generate handoff file
+  let handoffRelPath: string | null = null;
+  if (config.handoff.enabled) {
+    ui.info("Generating handoff file...");
+    const handoffPath = await generateHandoff(graph, config.handoff, root, outputDir);
+    if (handoffPath) {
+      handoffRelPath = path.relative(root, handoffPath);
+      ui.success(`Handoff generated → ${ui.c.dim}${handoffRelPath}${ui.c.reset}`);
+    } else {
+      ui.dimInfo("Handoff skipped (no git history found)");
+    }
+  }
+
   // Ensure .gitignore has ribbit entries
   ensureGitignore(root, outputDir);
 
@@ -232,6 +248,7 @@ async function run(options: { full?: boolean; stats?: boolean; config?: string }
     parseTime: graph.meta.parseTime,
     incremental,
     outputPath: relOutput,
+    handoffPath: handoffRelPath,
   });
 }
 

@@ -17,5 +17,12 @@ module.exports = {
   "output": "ribbit/",
   "chunkThreshold": 200,
   "includeTests": false,
-  "includeDotFiles": false
+  "includeDotFiles": false,
+  "handoff": {
+    "enabled": true,
+    "commits": 10,
+    "includeDiffs": true,
+    "includeImpact": true,
+    "format": "markdown"
+  }
 };

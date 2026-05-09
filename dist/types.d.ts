@@ -91,6 +91,18 @@ export interface RelationshipsChunk {
         outgoing: RibbitEdge[];
     }>;
 }
+export interface HandoffConfig {
+    /** Whether to generate the handoff file */
+    enabled: boolean;
+    /** How many commits to look back */
+    commits: number;
+    /** Include function-level diff analysis */
+    includeDiffs: boolean;
+    /** Include dependency impact analysis from the graph */
+    includeImpact: boolean;
+    /** Output format */
+    format: "markdown" | "json";
+}
 export interface RibbitConfig {
     ignore: string[];
     languages: string[];
@@ -99,6 +111,8 @@ export interface RibbitConfig {
     chunkThreshold: number;
     includeTests: boolean;
     includeDotFiles: boolean;
+    /** Handoff file generation config */
+    handoff: HandoffConfig;
 }
 export interface ParseResult {
     filePath: string;
@@ -117,4 +131,5 @@ export interface WorkerResult {
 }
 export declare const LANGUAGE_EXTENSIONS: Record<string, string[]>;
 export declare const DEFAULT_IGNORE: string[];
+export declare const DEFAULT_HANDOFF_CONFIG: HandoffConfig;
 export declare const DEFAULT_CONFIG: RibbitConfig;

@@ -63,32 +63,9 @@ function progressBar(value, max, barWidth = 16) {
     const empty = barWidth - filled;
     return `${exports.c.cyan}${"█".repeat(filled)}${exports.c.gray}${"░".repeat(empty)}${exports.c.reset}`;
 }
-// ─── Banner ────────────────────────────────────────────────────────────────────
-const BANNER_ART = [
-    " ██████  ██ ██████  ██████  ██ ████████ ",
-    " ██   ██ ██ ██   ██ ██   ██ ██    ██    ",
-    " ██████  ██ ██████  ██████  ██    ██    ",
-    " ██   ██ ██ ██   ██ ██   ██ ██    ██    ",
-    " ██   ██ ██ ██████  ██████  ██    ██    ",
-];
-const GRADIENT = [exports.c.brightGreen, exports.c.green, exports.c.brightGreen, exports.c.green, exports.c.brightGreen];
 function printBanner(version) {
-    const W = 50;
     console.log("");
-    console.log(boxTop(W));
-    console.log(boxEmpty(W));
-    for (let i = 0; i < BANNER_ART.length; i++) {
-        const line = BANNER_ART[i];
-        const colored = `${GRADIENT[i]}${exports.c.bold}${line}${exports.c.reset}`;
-        console.log(boxRow(colored, W));
-    }
-    console.log(boxEmpty(W));
-    const tagline = `${exports.c.green}🐸${exports.c.reset} ${exports.c.white}${exports.c.bold}Knowledge Graph Generator${exports.c.reset}`;
-    console.log(boxRow(`         ${tagline}          `, W));
-    const ver = `${exports.c.dim}v${version}${exports.c.reset}`;
-    console.log(boxRow(`                  ${ver}                   `, W));
-    console.log(boxEmpty(W));
-    console.log(boxBottom(W));
+    console.log(`  ${exports.c.green}🐸${exports.c.reset} ${exports.c.bold}Ribbit${exports.c.reset} ${exports.c.dim}v${version}${exports.c.reset}`);
     console.log("");
 }
 // ─── Status Messages ───────────────────────────────────────────────────────────
@@ -133,6 +110,9 @@ function printStats(stats) {
     console.log(boxRow(`${exports.c.gray}↻${exports.c.reset}  Mode     ${exports.c.bold}${stats.incremental ? `${exports.c.brightYellow}incremental` : `${exports.c.brightCyan}full scan`}${exports.c.reset}`, W));
     console.log(boxEmpty(W));
     console.log(boxRow(`${exports.c.green}→${exports.c.reset}  ${exports.c.dim}${stats.outputPath}${exports.c.reset}`, W));
+    if (stats.handoffPath) {
+        console.log(boxRow(`${exports.c.brightCyan}→${exports.c.reset}  ${exports.c.dim}${stats.handoffPath}${exports.c.reset}`, W));
+    }
     console.log(boxEmpty(W));
     console.log(boxBottom(W));
     console.log("");

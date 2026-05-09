@@ -31,6 +31,7 @@ interface StatsData {
     parseTime: number;
     incremental: boolean;
     outputPath: string;
+    handoffPath?: string | null;
 }
 export declare function printStats(stats: StatsData): void;
 export declare function printStatsOnly(meta: {
