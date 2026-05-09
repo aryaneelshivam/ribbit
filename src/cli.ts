@@ -17,7 +17,7 @@ import { generateHandoff } from "./handoff/generator";
 import { RibbitConfig, DEFAULT_CONFIG, DEFAULT_HANDOFF_CONFIG, ParseResult, WorkerResult } from "./types";
 import * as ui from "./ui";
 
-const VERSION = "1.1.4";
+const VERSION = "1.1.5";
 
 // ─── Config Loading ────────────────────────────────────────────────────────────
 

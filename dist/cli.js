@@ -50,7 +50,7 @@ const serializer_1 = require("./graph/serializer");
 const generator_1 = require("./handoff/generator");
 const types_1 = require("./types");
 const ui = __importStar(require("./ui"));
-const VERSION = "1.1.4";
+const VERSION = "1.1.5";
 // ─── Config Loading ────────────────────────────────────────────────────────────
 function loadConfig(configPath) {
     const root = process.cwd();
